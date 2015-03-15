@@ -1,5 +1,7 @@
 package app.shoerobot.shoerobots;
 
+
+/*
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,9 +27,45 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+*/
 
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+
+//mConnectedGatt = device.connectGatt(this, false, mGattCallback);
 
 public class MainBluetooth extends ActionBarActivity {
 
@@ -41,6 +79,9 @@ public class MainBluetooth extends ActionBarActivity {
     // UI elements
     private TextView messages;
     private EditText input;
+
+    private String enciende = "1";
+    private String apaga = "2";
 
     // BTLE state
     private BluetoothAdapter adapter;
@@ -86,6 +127,13 @@ public class MainBluetooth extends ActionBarActivity {
             rx = gatt.getService(UART_UUID).getCharacteristic(RX_UUID);
             // Setup notifications on RX characteristic changes (i.e. data received).
             // First call setCharacteristicNotification to enable notification.
+
+            // Update TX characteristic value.  Note the setValue overload that takes a byte array must be used.
+            tx.setValue(enciende.getBytes(Charset.forName("UTF-8")));
+            gatt.writeCharacteristic(tx);
+
+
+
             if (!gatt.setCharacteristicNotification(rx, true)) {
                 writeLine("Couldn't set notifications for RX characteristic!");
             }
@@ -100,6 +148,31 @@ public class MainBluetooth extends ActionBarActivity {
             else {
                 writeLine("Couldn't get RX client descriptor!");
             }
+
+
+            /*if (gatt.writeCharacteristic(tx)) {
+                writeLine("Sent: " + enciende);
+            }*/
+
+
+            /*try {
+                Thread.sleep(5000);
+                tx.setValue(apaga.getBytes(Charset.forName("UTF-8")));
+                gatt.writeCharacteristic(tx);
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            gatt.disconnect();
+            gatt.close();
+            gatt = null;
+            tx = null;
+            rx = null;
+*/
+
         }
 
         // Called when a remote characteristic changes (like the RX characteristic).
@@ -111,7 +184,7 @@ public class MainBluetooth extends ActionBarActivity {
     };
 
     // BTLE device scanning callback.
-    private LeScanCallback scanCallback = new LeScanCallback() {
+    private BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
         // Called when a device is found.
         @Override
         public void onLeScan(BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
@@ -125,6 +198,7 @@ public class MainBluetooth extends ActionBarActivity {
                 // Connect to the device.
                 // Control flow will now go to the callback functions when BTLE events occur.
                 gatt = bluetoothDevice.connectGatt(getApplicationContext(), false, callback);
+                //mConnectedGatt = device.connectGatt(this, false, mGattCallback);
             }
         }
     };
@@ -140,7 +214,11 @@ public class MainBluetooth extends ActionBarActivity {
         messages = (TextView) findViewById(R.id.messages);
         input = (EditText) findViewById(R.id.input);
 
-        adapter = BluetoothAdapter.getDefaultAdapter();
+        //adapter = BluetoothAdapter.getDefaultAdapter();
+
+        BluetoothManager manager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+        adapter = manager.getAdapter();
+
     }
 
     // OnResume, called right before UI is displayed.  Start the BTLE connection.
@@ -151,6 +229,7 @@ public class MainBluetooth extends ActionBarActivity {
         // The first one with the UART service will be chosen--see the code in the scanCallback.
         writeLine("Scanning for devices...");
         adapter.startLeScan(scanCallback);
+
     }
 
 
@@ -166,6 +245,7 @@ public class MainBluetooth extends ActionBarActivity {
             tx = null;
             rx = null;
         }
+
     }
 
     // Handler for mouse click on the send button.
