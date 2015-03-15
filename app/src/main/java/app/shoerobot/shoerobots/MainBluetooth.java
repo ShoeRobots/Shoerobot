@@ -1,36 +1,5 @@
 package app.shoerobot.shoerobots;
 
-
-/*
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothAdapter.LeScanCallback;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
-
-
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-*/
-
-
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -250,7 +219,8 @@ public class MainBluetooth extends ActionBarActivity {
 
     // Handler for mouse click on the send button.
     public void sendClick(View view) {
-        String message = input.getText().toString();
+
+       /* String message = input.getText().toString();
         if (tx == null || message == null || message.isEmpty()) {
             // Do nothing if there is no device or message to send.
             return;
@@ -262,7 +232,9 @@ public class MainBluetooth extends ActionBarActivity {
         }
         else {
             writeLine("Couldn't write TX characteristic!");
-        }
+        }*/
+
+
     }
 
 

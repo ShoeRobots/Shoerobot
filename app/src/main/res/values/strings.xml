@@ -5,4 +5,42 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- LABELS --> 
+    <string name="app_version">v0.1</string>
+
+    <!-- TITLES -->
+    <string name="guardar">GUARDAR</string>
+    <string name="continuar">CONTINUAR</string>
+    <string name="regresar">REGRESAR</string>
+    <string name="timer">El servicio comienza en:</string>
+    <string name="hint_email">      email</string>
+    <string name="init_timer">00:03:00</string>
+
+    <!-- OPCIONES RADIO -->
+    <string name="r_si">Si </string>
+    <string name="r_no">No </string>
+
+    <!-- PREGUNTAS -->
+    <string name="pregunta_uno">¿Te gustaría conocer más de este destino?</string>
+    <string name="pregunta_dos">Ingresa tu email:</string>
+    <!-- <string name=""></string> -->
+
+
+    <!-- MENSAJES -->
+    <string name="msj_email">Para continuar, debes ingresar una dirección de email valida.</string>
+    <string name="msj_opcion">Para continuar, debes seleccionar una opción.</string>
+    <string name="msj_exito">Gracias por contestar la encuesta, tu opinión es muy importante.</string>
+    <string name="msj_regxdia">El correo ya se encuentra registrado en la aplicación, solo se permiten dos registros por día.</string>
+    <string name="msj_errorbd">Por el momento, no sé puede registrar la información. Por favor inténtalo más tarde.</string>
+
+    <!-- TUTORIAL -->
+    
+    <string name="tuto_encabezado">Lustrada tu calzado GRATIS!!</string>
+    <string name="tuto_instricciones">Es muy fácil, sigue estos sencillos pasos:</string>
+    <string name="tuto_cuerpoini">- Contesta un breve cuestionario.</string>
+    <string name="tuto_cuerposig">- Coloca tus zapatos en la posición correcta. </string>
+    <string name="tuto_cuerpofin">- Disfruta del servicio.</string>
+	<string name="tuto_cuerponota">Nota: La información recopilada, se usara solo para generación de estadísticas.</string>
+        
+
 </resources>
